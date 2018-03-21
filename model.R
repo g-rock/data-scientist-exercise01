@@ -24,7 +24,7 @@ x.test = nontrain[-validationidx, -which(names(nontrain) == c(target))]
 y.test = nontrain[-validationidx, target]
 
 # Down sample to get equal groups of salary < 50k & salary > 50k
-# This step helps to reduce overfitting of the 
+# This step reduces overfitting of the models we will build 
 ds = downSample(train[,predictors], train[,target], list = F)
 names(ds)[names(ds) == 'Class'] = "over_50k"
 
@@ -41,9 +41,9 @@ glm.Results$obs = y.validation
 glmConfMatrix = confusionMatrix(glm.Results$preds, glm.Results$obs)
 print(glmConfMatrix)
 model_metrics = add_row(model_metrics, Model = "Logistic Regression",
-                        sprintf("%3.3",Accuracy = glmConfMatrix$overall['Accuracy']),
-                        sprintf("%3.3",TPR = glmConfMatrix$byClass['Sensitivity']),
-                        sprintf("%3.3",TNR = glmConfMatrix$byClass['Specificity']))
+                        Accuracy = sprintf("%3.3f",glmConfMatrix$overall[['Accuracy']]),
+                        TPR = sprintf("%3.3f", glmConfMatrix$byClass[['Sensitivity']]),
+                        TNR = sprintf("%3.3f", glmConfMatrix$byClass[['Specificity']]))
 
 plot_sensitivity_and_acc(glm.Results$under, glm.Results$obs)
 
@@ -57,10 +57,11 @@ validate.ranger.Results$obs = y.validation
 ranger1ConfMatrix = confusionMatrix(validate.ranger.Results$preds, validate.ranger.Results$obs)
 print(ranger1ConfMatrix)
 
-model_metrics = add_row(model_metrics, Model = "Random Forest w/ 0.50 cutoff",
-                      Accuracy = sprintf("%3.3",ranger1ConfMatrix$overall['Accuracy']),
-                      TPR = sprintf("%3.3",ranger1ConfMatrix$byClass['Sensitivity']),
-                      TNR = sprintf("%3.3",ranger1ConfMatrix$byClass['Specificity']))
+model_metrics = add_row(model_metrics,
+                      Model = "Random Forest w/ 0.50 cutoff",
+                      Accuracy = sprintf("%3.3f",ranger1ConfMatrix$overall[['Accuracy']]),
+                      TPR = sprintf("%3.3f",ranger1ConfMatrix$byClass[['Sensitivity']]),
+                      TNR = sprintf("%3.3f",ranger1ConfMatrix$byClass[['Specificity']]))
 
 plot_sensitivity_and_acc(validate.ranger.Results$under, validate.ranger.Results$obs)
 
@@ -71,10 +72,11 @@ test.ranger.Results$obs = y.test
 
 ranger2ConfMatrix = confusionMatrix(test.ranger.Results$preds, test.ranger.Results$obs)
 print(ranger2ConfMatrix)
-model_metrics = add_row(model_metrics, Model = "Random Forest w/ 0.45 cutoff",
-                      Accuracy = sprintf("%3.3f", ranger2ConfMatrix$overall['Accuracy']),
-                      TPR = sprintf("%3.3",franger2ConfMatrix$byClass['Sensitivity']),
-                      TNR = sprintf("%3.3",ranger2ConfMatrix$byClass['Specificity']))
+model_metrics = add_row(model_metrics,
+                      Model = "Random Forest w/ 0.45 cutoff",
+                      Accuracy = sprintf("%3.3f", ranger2ConfMatrix$overall[['Accuracy']]),
+                      TPR = sprintf("%3.3f",ranger2ConfMatrix$byClass[['Sensitivity']]),
+                      TNR = sprintf("%3.3f",ranger2ConfMatrix$byClass[['Specificity']]))
 plot_sensitivity_and_acc(test.ranger.Results$under, test.ranger.Results$obs)
 
 pred = prediction( glm.Results$under, glm.Results$obs )
