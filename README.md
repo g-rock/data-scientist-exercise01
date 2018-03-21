@@ -25,16 +25,16 @@ Google will point you to popular libraries for connecting to SQLite databases fr
 There are many things you can do with this dataset. Here are a few structured tasks to attempt:
 
 1. Read the section below about **The Data**.
-1. Write a SQL query that creates a consolidated dataset from the normalized tables in the database. In other words, write a SQL query that "flattens" the database to a single table.
-1. Export the "flattened" table to a CSV file.
+1. Write a SQL query that creates a consolidated dataset from the normalized tables in the database. In other words, write a SQL query that "flattens" the database to a single table (database/flatten_db.sh).
+1. Export the "flattened" table to a CSV file (flattened_db.sh).
 1. Import the "flattened" table (or CSV file) into your open source analytic environment of choice (R, Python, Java, etc.) and stage it for analysis.
-1. Perform some simple exploratory analysis and generate summary statistics to get a sense of what is in the data.
+1. Perform some simple exploratory analysis and generate summary statistics to get a sense of what is in the data (bottom of prepare.R).
     * You should commit any useful or informative exploratory code.
-1. Split the data into training, validation, and test data sets. 
-1. Develop a model that predicts whether individuals, based on the census variables provided, make over $50,000/year. Use `over_50k` as the target variable. 
-    * Commit enough code to reproduce your full model selection process, including your final model and all models developed along the way.
-1. Generate a chart that you feel conveys 1 or more important relationships in the data.
-1. Describe your methodology and results in 1/2 page of writing.
+1. Split the data into training, validation, and test data sets (run_analysis.R). 
+1. Develop a model that predicts whether individuals, based on the census variables provided, make over $50,000/year. Use `over_50k` as the target variable (run_analysis.R, build_glm.R, build_ranger.R, build_roc.R). 
+    * Commit enough code to reproduce your full model selection process, including your final model and all models developed along the way (run_analysis.R).
+1. Generate a chart that you feel conveys 1 or more important relationships in the data. (interesting_chart.png)
+1. Describe your methodology and results in 1/2 page of writing. (writeup.pdf)
     * Include the chart(s) generated in Step 7 as part of your write-up. If neccesary, explain how the chart(s) informs your approach. 
 
 _Additional Context:_
